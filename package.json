@@ -10,9 +10,9 @@
         "build:watch2": "pnpm -F @shenjipo/mention-vue2 build:watch",
         "build:watch3": "pnpm -F @shenjipo/mention-vue3 build:watch",
         "build": "pnpm -F @shenjipo/mention-editor run build && pnpm -F @shenjipo/mention-vue2 build && pnpm -F @shenjipo/mention-vue3 build",
-        "pub-editor": "pnpm publish -F @shenjipo/mention-editor",
-        "pub-vue2": "pnpm publish --recursive -F @shenjipo/mention-vue2",
-        "pub-vue3": "pnpm publish --recursive -F @shenjipo/mention-vue3"
+        "pub": "pnpm publish -F @shenjipo/mention-editor",
+        "pub2": "pnpm publish --recursive -F @shenjipo/mention-vue2",
+        "pub3": "pnpm publish --recursive -F @shenjipo/mention-vue3"
     },
     "keywords": [],
     "author": "",
