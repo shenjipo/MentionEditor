@@ -23,7 +23,8 @@
         "build:watch": "vite build --watch"
     },
     "files": [
-        "dist"
+        "dist",
+        "src"
     ],
     "publishConfig": {
         "access": "public"
