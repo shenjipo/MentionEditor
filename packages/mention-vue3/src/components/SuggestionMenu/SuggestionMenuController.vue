@@ -1,27 +1,26 @@
 <template>
     <div v-if="showDom" ref="floatingRef" :style="style">
-        <SuggestionMenuWrapper :query="state!.query" :getItems="getItems" :onItemClick="onItemClick"
-            :closeMenu="closeMenu" :clearQuery="clearQuery" :insertMention="insertMention" />
+        <slot v-bind="suggestionMenuProps">
+
+        </slot>
+
     </div>
 </template>
 
 <script setup lang="ts">
-import SuggestionMenuWrapper from './SuggestionMenuWrapper.vue';
 import { ref, computed, onUnmounted, onMounted, inject, Ref } from 'vue';
 import type { SuggestionMenuState } from '@shenjipo/mention-editor';
 import MEditor from '@shenjipo/mention-editor';
-import type { SuggestionItem } from './types';
 import { useUIElementPositioning } from '@/hooks/useUIElementPositioning';
 import { flip, offset, shift, size } from '@floating-ui/vue'
 
 const props = defineProps<{
     triggerCharacter: string,
     minQueryLength?: number,
-    getItems: (query: string) => Promise<SuggestionItem[]>,
-    onItemClick?: (item: SuggestionItem) => void
 }>()
 
 const state = ref<SuggestionMenuState | null>(null)
+
 const editor = inject<Ref<MEditor>>('editor')
 const showDom = computed(() => {
     const res = state.value?.show &&
@@ -61,12 +60,10 @@ const { floatingRef, style } = useUIElementPositioning(
 let unsubscribe: any = null
 
 onMounted(() => {
-
     unsubscribe = editor?.value.suggestionMenus.onUpdate(
         props.triggerCharacter,
         (newState) => {
             state.value = newState
-
         }
     )
 })
@@ -82,12 +79,19 @@ const closeMenu = () => {
 const clearQuery = () => {
     editor!.value.suggestionMenus.clearQuery()
 }
-const emit = defineEmits(['itemClick'])
+
 const insertMention = (item: any) => {
     editor!.value.inserMentionBlock(item)
-    // editor!.value.suggestionMenus.insertMention(item)
-    emit('itemClick', item)
 }
+
+const suggestionMenuProps = computed(() => ({
+    editor: editor.value,
+    query: state!.value?.query ?? '',
+    closeMenu,
+    clearQuery,
+    insertMention,
+}))
+
 </script>
 
 <style scoped></style>

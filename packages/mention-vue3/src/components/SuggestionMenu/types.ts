@@ -1,8 +1,11 @@
-export type SuggestionMenuProps<T> = {
-    items: T[]
-    loadingState: 'loading-initial' | 'loading' | 'loaded'
-    selectedIndex: number | undefined
-    onItemClick?: (item: T) => void
+import MEditor from "@shenjipo/mention-editor"
+
+export interface SuggestionMenuPropsType {
+    editor: MEditor
+    query: string
+    closeMenu: () => void
+    clearQuery: () => void
+    insertMention: (item: SuggestionItem) => void
 }
 
 export interface SuggestionItem {

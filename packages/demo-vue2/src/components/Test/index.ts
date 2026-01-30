@@ -1,14 +1,16 @@
 import { Component, Vue } from "vue-property-decorator"
-import MEditorVue2 from "@shenjipo/mention-vue2"
+import MEditorVue2, { SuggestionMenuController } from "@shenjipo/mention-vue2"
 import "@shenjipo/mention-vue2/dist/index.css"
 import { Message } from "element-ui"
 import SlashMention from "../SlashMention/index.vue"
+import SuggestionList from "../SuggestionList/index.vue"
 import type { MEditorVue2Type } from "@shenjipo/mention-vue2/types"
 
 @Component({
     components: {
         MEditorVue2,
-        SlashMention,
+        SuggestionMenuController,
+        SuggestionList,
     }
 })
 export default class Test extends Vue {

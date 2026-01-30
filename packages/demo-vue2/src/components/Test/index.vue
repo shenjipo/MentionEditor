@@ -1,8 +1,19 @@
 <template>
     <div class="test">
         <MEditorVue2 ref="editorRef" v-model="inputValue" @fileInput="handleFileChange"
-            @deleteMention="handleDeleteMention" @enter="handleEnter" :options="{ lineBreak: 'shift-enter' }">
-            <SlashMention />
+            @deleteMention="handleDeleteMention" @enter="handleEnter" :options="{ lineBreak: 'shift+enter' }">
+
+            <SuggestionMenuController triggerCharacter="/">
+                <template v-slot="menu">
+                    <SuggestionList :props="menu" />
+                </template>
+            </SuggestionMenuController>
+
+            <SuggestionMenuController triggerCharacter="@">
+                <template v-slot="menu">
+                    <SuggestionList :props="menu" />
+                </template>
+            </SuggestionMenuController>
 
             <template #header>
                 <div class="mention-header">

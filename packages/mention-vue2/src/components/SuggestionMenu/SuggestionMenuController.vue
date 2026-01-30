@@ -1,26 +1,21 @@
 <template>
     <div v-if="showDom" ref="floatingRef" :style="style">
-        <SuggestionMenuWrapper :query="state.query" :getItems="getItems" :onItemClick="onItemClick"
-            :closeMenu="closeMenu" :clearQuery="clearQuery" :insertMention="insertMention" />
+        <slot :query="state.query" :editor="editor" :closeMenu="closeMenu" :clearQuery="clearQuery"
+            :insertMention="insertMention">
+        </slot>
     </div>
 </template>
 
 <script>
 import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue-demi'
-import SuggestionMenuWrapper from './SuggestionMenuWrapper.vue'
 import { useUIElementPositioning } from '@/hooks/useUIElementPositioning'
 import { offset, flip, shift, size } from '@floating-ui/dom'
 
 export default {
     name: 'SuggestionMenuController',
-    components: {
-        SuggestionMenuWrapper,
-    },
     props: {
         triggerCharacter: { type: String, required: true },
         minQueryLength: { type: Number },
-        getItems: { type: Function, required: true },
-        onItemClick: { type: Function },
     },
 
     setup(props) {
@@ -59,13 +54,12 @@ export default {
                 },
             }
         )
-       
+
         let unsubscribe = null
         onMounted(() => {
             unsubscribe = editor.value.suggestionMenus.onUpdate(
                 props.triggerCharacter,
                 (newState) => {
-                    
                     state.value = newState
                 }
             )
@@ -86,10 +80,11 @@ export default {
         }
 
         return {
-            state,
             floatingRef,
             style,
             showDom,
+            editor: editor.value,
+            state,
             closeMenu,
             clearQuery,
             insertMention,

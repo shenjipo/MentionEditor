@@ -1,10 +1,12 @@
 import MEditorVue3 from './components/MEditorVue3.vue'
 import SuggestionMenuController from './components/SuggestionMenu/SuggestionMenuController.vue'
+import { useSuggestionMenuKeyboardNavigation } from './hooks/useSuggestionMenuKeyboardNavigation'
 
 // 导出组件
 export {
     MEditorVue3,
     SuggestionMenuController,
+    useSuggestionMenuKeyboardNavigation,
 }
 export default MEditorVue3
 

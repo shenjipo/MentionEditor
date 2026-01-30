@@ -1,10 +1,18 @@
 {
     "name": "@shenjipo/mention-vue3",
-    "version": "2.7.0",
+    "version": "2.8.0",
     "main": "dist/index.esm.js",
     "module": "dist/index.esm.js",
     "types": "dist/index.d.ts",
     "style": "dist/index.css",
+    "exports": {
+        ".": {
+            "import": "./dist/index.esm.js",
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.esm.js"
+        },
+        "./dist/index.css": "./dist/index.css"
+    },
     "scripts": {
         "dev": "vite",
         "build": "vite build",
@@ -13,7 +21,7 @@
     "dependencies": {
         "@floating-ui/vue": "^1.1.9",
         "@shenjipo/mention-editor": "workspace:*",
-        "vue": "^3.2.37"
+        "vue": "^3.3.0"
     },
     "devDependencies": {
         "@types/node": "^16.11.43",

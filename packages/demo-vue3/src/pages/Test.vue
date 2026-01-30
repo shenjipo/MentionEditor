@@ -1,6 +1,6 @@
 <template>
     <MEditorVue3 class="editor" ref="mEditorVue3Ref" v-model="inputValue" @file-reject="handleFielRejcet"
-        @image-input="handleImagePaste" @enter="handleEnter" :options="{ lineBreak: 'shift-enter' }">
+        @image-input="handleImagePaste" @enter="handleEnter" :options="{ lineBreak: 'enter' }">
 
         <template #header>
             <div class="mention-header">
@@ -8,10 +8,19 @@
                 </el-image>
             </div>
         </template>
+        <SuggestionMenuController trigger-character="/">
+            <template v-slot="menu">
+                <SuggestionList v-bind="menu" />
+            </template>
+        </SuggestionMenuController>
 
-        <SlashMention />
-        <AtMention />
+        <SuggestionMenuController trigger-character="@">
+            <template v-slot="menu">
+                <SuggestionList v-bind="menu" />
+            </template>
+        </SuggestionMenuController>
 
+     
         <template #footer>
             <el-button type="primary" @click="handleClick">打印内容</el-button>
             <el-button type="primary" @click="handleInsert">插入mention</el-button>
@@ -22,10 +31,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import SlashMention from '@/components/SlashMention.vue';
-import AtMention from '@/components/AtMention.vue';
+import { SuggestionMenuController } from '@shenjipo/mention-vue3';
+import SuggestionList from '@/components/SuggestionList.vue';
 import MEditorVue3 from '@shenjipo/mention-vue3';
-import { type ImageInputPayload } from '@shenjipo/mention-editor';
 import "@shenjipo/mention-vue3/dist/index.css"
 import { ElMessage } from 'element-plus';
 
@@ -56,11 +64,8 @@ const handleFielRejcet = (file: File) => {
     ElMessage.error(`暂不持支持 ${file.name} 的文件格式!`)
 }
 
-const handleImagePaste = (val: ImageInputPayload) => {
-    files.value.push({
-        file: val.file,
-        url: val.base64,
-    })
+const handleImagePaste = (val: File) => {
+
 }
 
 const handleEnter = () => {

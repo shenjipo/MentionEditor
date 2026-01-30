@@ -70,7 +70,6 @@ export function useUIElementPositioning(show, referencePos, zIndex, options = {}
     }
 
     const style = computed(() => ({
-        display: 'flex',
         zIndex,
         ...floatingStyles.value,
     }))

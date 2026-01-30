@@ -10,6 +10,7 @@ export default defineConfig({
         dts({
             entryRoot: 'src',
             outDir: 'dist',
+            cleanVueFileName: true,
             insertTypesEntry: true, // ⭐ 自动生成 dist/index.d.ts
             copyDtsFiles: true,
         }),

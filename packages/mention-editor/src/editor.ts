@@ -9,6 +9,7 @@ import { MentionBlock } from './blocks/MentionBlock'
 import { type MentionItem } from './extensions/SuggestionMenu/types'
 import { InsertMentionBlock } from './api/InsertMentionBlock'
 import { MentionDeletePlugin } from './extensions/MentionDeletePlugin/MentionDeletePlugin'
+import { EnterMode } from './extensions/ShiftEnterPlugin/ShiftEnterPlugin'
 import { ShiftEnterPlugin } from './extensions/ShiftEnterPlugin/ShiftEnterPlugin'
 
 export interface MentionEditorOptions {
@@ -19,35 +20,32 @@ export interface MentionEditorOptions {
     content?: string
     onMentionDelete?: (item: MentionItem) => void
     onEnter?: () => void
-    lineBreak?: 'shift-enter' | 'enter'
+    lineBreak?: EnterMode
 }
 
 
 export default class MEditor {
+    options: MentionEditorOptions
     _tiptapEditor: Editor
     public readonly suggestionMenus: SuggestionMenuProseMirrorPlugin
     public readonly mentionDeletePlugin: MentionDeletePlugin
     public readonly shiftEnterPlugin: ShiftEnterPlugin
 
     constructor(options: MentionEditorOptions) {
+        this.options = options
         this.suggestionMenus = new SuggestionMenuProseMirrorPlugin(this)
         this.mentionDeletePlugin = new MentionDeletePlugin(this, options.onMentionDelete)
-
-        if (options.lineBreak === 'shift-enter') {
-            this.shiftEnterPlugin = new ShiftEnterPlugin(this, options.onEnter)
-        }
+        this.shiftEnterPlugin = new ShiftEnterPlugin(this, options.onEnter)
 
         const MEditorUIExtension = Extension.create({
             name: 'MEditorUIExtension',
             addProseMirrorPlugins: () => {
                 const plugins = [
                     this.suggestionMenus.plugin,
-                    this.mentionDeletePlugin.plugin
+                    this.mentionDeletePlugin.plugin,
+                    this.shiftEnterPlugin.plugin,
                 ]
 
-                if (this.shiftEnterPlugin) {
-                    plugins.unshift(this.shiftEnterPlugin.plugin)
-                }
                 return plugins
             },
         })

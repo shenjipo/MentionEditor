@@ -11,14 +11,14 @@
 <script setup lang="ts">
 import MEditor from '@shenjipo/mention-editor';
 import { ref, onMounted, provide, shallowRef } from 'vue';
-import { SuggestionItem } from './SuggestionMenu/types';
+import { type SuggestionItem } from './SuggestionMenu/types';
 
 const props = withDefaults(defineProps<
     {
         modelValue: string,
         options?: Partial<{
             placeholder: string,
-            lineBreak: 'enter' | 'shift-enter'
+            lineBreak: 'enter' | 'shift+enter'
         }>
     }
 
