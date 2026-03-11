@@ -12,6 +12,7 @@
 import { ref } from 'vue';
 import type { SuggestionItem } from '@shenjipo/mention-vue3';
 import { useSuggestionMenuKeyboardNavigation } from '@shenjipo/mention-vue3';
+import MEditor from '@shenjipo/mention-editor';
 
 const props = defineProps<{
     editor: MEditor
