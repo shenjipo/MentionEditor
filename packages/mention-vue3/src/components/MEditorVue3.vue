@@ -18,7 +18,8 @@ const props = withDefaults(defineProps<
         modelValue: string,
         options?: Partial<{
             placeholder: string,
-            lineBreak: 'enter' | 'shift+enter'
+            lineBreak: 'enter' | 'shift+enter',
+            fetchAutocompletion?: () => Promise<string>
         }>
     }
 
@@ -65,6 +66,7 @@ onMounted(() => {
             onEnter: () => {
                 emit('enter')
             },
+            fetchAutocompletion: props.options.fetchAutocompletion,
         })
     }
 })

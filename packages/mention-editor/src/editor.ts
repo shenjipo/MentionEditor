@@ -11,6 +11,7 @@ import { InsertMentionBlock } from './api/InsertMentionBlock'
 import { MentionDeletePlugin } from './extensions/MentionDeletePlugin/MentionDeletePlugin'
 import { EnterMode } from './extensions/ShiftEnterPlugin/ShiftEnterPlugin'
 import { ShiftEnterPlugin } from './extensions/ShiftEnterPlugin/ShiftEnterPlugin'
+import { PromptExtension } from './extensions/PromptExtension'
 
 export interface MentionEditorOptions {
     element: HTMLElement
@@ -21,6 +22,7 @@ export interface MentionEditorOptions {
     onMentionDelete?: (item: MentionItem) => void
     onEnter?: () => void
     lineBreak?: EnterMode
+    fetchAutocompletion?: (inputText: string) => Promise<string>
 }
 
 
@@ -68,6 +70,9 @@ export default class MEditor {
                     onFileInput: options.onFileInput,
                 }),
                 MEditorUIExtension,
+                PromptExtension.configure({
+                    fetchAutocompletion: options.fetchAutocompletion
+                }),
             ],
             onUpdate: ({ editor }) => {
                 options.onChange(editor.getText())

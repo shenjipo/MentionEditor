@@ -6,8 +6,8 @@ import SuggestionMenuController from './components/SuggestionMenu/SuggestionMenu
 export {
     MEditorVue2,
     SuggestionMenuController,
-   
 }
+
 export default MEditorVue2
 
 import './assets/index.scss'

@@ -1,7 +1,10 @@
 <template>
     <div class="test">
         <MEditorVue2 ref="editorRef" v-model="inputValue" @fileInput="handleFileChange"
-            @deleteMention="handleDeleteMention" @enter="handleEnter" :options="{ lineBreak: 'shift+enter' }">
+            @deleteMention="handleDeleteMention" @enter="handleEnter" :options="{
+                lineBreak: 'shift+enter',
+                fetchAutocompletion: handlePrompt,
+            }">
 
             <SuggestionMenuController triggerCharacter="/">
                 <template v-slot="menu">

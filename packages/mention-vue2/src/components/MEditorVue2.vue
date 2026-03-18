@@ -50,6 +50,7 @@ export default {
                     onEnter: () => {
                         emit('enter')
                     },
+                    fetchAutocompletion: props.options.fetchAutocompletion,
                 })
             }
         })

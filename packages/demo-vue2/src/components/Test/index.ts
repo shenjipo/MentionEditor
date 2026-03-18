@@ -61,6 +61,14 @@ export default class Test extends Vue {
         console.log(this.$refs.editorRef.editor.getAllMentionBlocks())
     }
 
+    handlePrompt() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('(这是AI的提示,按下tab可以自动输入)')
+            }, 1000)
+        })
+    }
+
     handleEnter() {
         console.log('enter事件')
     }

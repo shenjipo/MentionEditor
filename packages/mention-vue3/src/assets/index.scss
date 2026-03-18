@@ -38,7 +38,13 @@
                 display: inline-block;
                 margin-right: 4px;
             }
+            [data-inline-suggestion]::after {
+                content: attr(data-inline-suggestion);
+                color: #999;
+                opacity: 0.6;
+                pointer-events: none;
+                white-space: pre;
+            }
         }
-
     }
 }

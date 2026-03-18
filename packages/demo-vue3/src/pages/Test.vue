@@ -1,6 +1,9 @@
 <template>
     <MEditorVue3 class="editor" ref="mEditorVue3Ref" v-model="inputValue" @file-reject="handleFielRejcet"
-        @image-input="handleImagePaste" @enter="handleEnter" :options="{ lineBreak: 'enter' }">
+        @image-input="handleImagePaste" @enter="handleEnter" :options="{
+            lineBreak: 'enter',
+            fetchAutocompletion: prompt,
+        }">
 
         <template #header>
             <div class="mention-header">
@@ -20,7 +23,7 @@
             </template>
         </SuggestionMenuController>
 
-     
+
         <template #footer>
             <el-button type="primary" @click="handleClick">打印内容</el-button>
             <el-button type="primary" @click="handleInsert">插入mention</el-button>
@@ -70,6 +73,14 @@ const handleImagePaste = (val: File) => {
 
 const handleEnter = () => {
     console.log('enter事件')
+}
+
+const prompt = (): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('(这是AI的提示,按下tab可以自动输入)')
+        }, 1000)
+    })
 }
 </script>
 
